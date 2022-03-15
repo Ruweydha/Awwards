@@ -2,4 +2,15 @@
 {% load bootstrap5 %}
 {% block content %}
 <h1 class="text-center">Hello {{current_user.username}}</h1>
+<a href="{%url 'profile' current_user.id%}">profile</a> <br>
+<a href="{%url 'updateProfile' %}"> update profile</a> <br>
+<a href="{%url 'postProject' %}">Post project</a>
+{% for project in projects %}
+<h5 class="text-center">{{project.title}}</h5>
+<img src="{{project.image.url}}" alt="">
+<p>{{project.description}}</p>
+<a href="{{project.project_url}}" target="_blank">View Project</a>
+{% endfor %}
+
+
 {%endblock%}
