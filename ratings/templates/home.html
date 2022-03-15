@@ -5,12 +5,63 @@
 <a href="{%url 'profile' current_user.id%}">profile</a> <br>
 <a href="{%url 'updateProfile' %}"> update profile</a> <br>
 <a href="{%url 'postProject' %}">Post project</a>
-{% for project in projects %}
-<h5 class="text-center">{{project.title}}</h5>
-<img src="{{project.image.url}}" alt="">
-<p>{{project.description}}</p>
-<a href="{{project.project_url}}" target="_blank">View Project</a>
-{% endfor %}
+<div class="container-fluid">
+    <div class="row">
+        {% for project in projects %}
+        <div class="col-md-4 cards">
+            <div class="card" style="width: 25rem; height: 392px; margin: auto;">
+                <img class="card-img-top" src="{{project.image.url}}" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">{{project.title}}</h5>
+                  <p class="card-text">{{project.description}}</p>
+                  <a href="{{project.project_url}}" target="_blank" class="btn btn-primary">View Project</a>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal{{project.id}}">
+                    Rate
+                  </button>
+                </div>
+                
+              </div>
+        </div>
+          
+          <!-- Modal -->
+          <div class="modal fade" id="modal{{project.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="container-fluid">
+                        <div class="container-lg" id="contentWrapper">
+                            <div class="row mt-5">
+                                <div id="main" class="col-lg-8 col-12 my-4">
+        
+                                    <div class="col-md-12">
+                                        <form action="{% url 'ratings' project.id %}" method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            {% bootstrap_form form %}
+                                            <input type="submit" class="btn btn-success btn-lg" value="Post">
+                                        
+                                        </form>
+                                    </div>
+                                    </div>
+                        </div>          
+                    </div>             
+                    </div>   
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+    </div>
+</div>
+
+
 
 
 {%endblock%}
