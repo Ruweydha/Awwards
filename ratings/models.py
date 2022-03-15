@@ -30,9 +30,17 @@ class Project(models.Model):
     project_url = models.URLField()
     date_posted = models.DateField(auto_now_add=True)
 
+    @classmethod
+    def search_by_title(cls,search_term):
+        news = cls.objects.filter(title__icontains=search_term)
+        return news
+
+
 class Ratings(models.Model):
     design = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(10.0)])
     usability = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(10.0)])
     content = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(10.0)])
+    project = models.ForeignKey(Project, on_delete= models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    average = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(10.0)], default = 0.0)
         
-
