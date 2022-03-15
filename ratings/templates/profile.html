@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+<div class="container">
+     <p>{{current_user.username}}</p>
+     {% if profile.profile_pic %}
+       <img src="{{profile.profile_pic.url}}" alt=""> 
+       <p>{{profile.bio}}</p>
+    {% else %}
+    <h1>You have no profile pic create one</h1>  
+    {% endif %}
+    {% for project in projects %}
+<h5 class="text-center">{{project.title}}</h5>
+<img src="{{project.image.url}}" alt="">
+<p>{{project.description}}</p>
+<a href="{{project.project_url}}" target="_blank">View Project</a>
+{% endfor %}
+
+   
+</div>
+{% endblock %}
