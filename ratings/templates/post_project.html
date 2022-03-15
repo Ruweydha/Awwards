@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+<div class="container create_profile">
+
+
+    <div class="container-fluid">
+        <div class="container-lg" id="contentWrapper">
+            <div class="row mt-5">
+                <div id="main" class="col-lg-8 col-12 my-4">
+
+                    <div class="col-md-12">
+                        <form action="{% url 'postProject' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% bootstrap_form form %}
+                            <input type="submit" class="btn btn-success btn-lg" value="Post">
+                        
+                        </form>
+                    </div>
+                    </div>
+          </div>          
+       </div>             
+    </div>                
+   
+</div>
+{% endblock %}
