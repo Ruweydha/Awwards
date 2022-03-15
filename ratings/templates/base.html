@@ -16,11 +16,22 @@
 
 </head>
 <body>
-    {% block content %}  {%endblock%}
+  {% include 'navbar.html' %}
+    {% block content %} 
+    
+    {%endblock%}
 
     {% block scripts %}
       
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+      var myModal = document.getElementById('myModal')
+      var myInput = document.getElementById('myInput')
+
+      myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus()
+      })
+    </script>
     {% bootstrap_javascript %}
 
     {% endblock %}
