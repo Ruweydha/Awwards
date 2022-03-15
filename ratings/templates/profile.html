@@ -9,13 +9,23 @@
     {% else %}
     <h1>You have no profile pic create one</h1>  
     {% endif %}
-    {% for project in projects %}
-<h5 class="text-center">{{project.title}}</h5>
-<img src="{{project.image.url}}" alt="">
-<p>{{project.description}}</p>
-<a href="{{project.project_url}}" target="_blank">View Project</a>
-{% endfor %}
-
-   
+    <div class="container">
+      <div class="row">
+        {% for project in projects %}
+        <div class="col-md-4">
+          <div class="card" style="width: 25rem; height: 392px;">
+            <img class="card-img-top" src="{{project.image.url}}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{project.title}}</h5>
+              <p class="card-text">{{project.description}}</p>
+              <!-- <a href="{{project.project_url}}" class="btn btn-primary">View Project</a> -->
+            </div>
+            
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+     
 </div>
 {% endblock %}
