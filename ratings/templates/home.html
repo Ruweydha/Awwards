@@ -1,25 +1,22 @@
 {% extends 'base.html' %}
 {% load bootstrap5 %}
 {% block content %}
-<h1 class="text-center">Hello {{current_user.username}}</h1>
-<a href="{%url 'profile' current_user.id%}">profile</a> <br>
-<a href="{%url 'updateProfile' %}"> update profile</a> <br>
-<a href="{%url 'postProject' %}">Post project</a>
-<div class="container-fluid">
+<h6 class="text-center mt-5">The awards of design, creativity and innovation on the internet </h6>
+
+<div class="container mt-4">
     <div class="row">
         {% for project in projects %}
-        <div class="col-md-4 cards">
-            <div class="card" style="width: 25rem; height: 392px; margin: auto;">
-                <img class="card-img-top" src="{{project.image.url}}" alt="Card image cap">
-                <div class="card-body">
+        <div class="col-md-4   col-sm-4 col-xl-4 col-lg-4">
+            <div class="card mx-auto m-1" style="width: 100%; ">
+                <img class="card-img-top img-fluid" src="{{project.image.url}}" alt="Card image cap">
+                <div class="card-body" style="height: 190px;">
                   <h5 class="card-title">{{project.title}}</h5>
                   <p class="card-text">{{project.description}}</p>
                   <a href="{{project.project_url}}" target="_blank" class="btn btn-primary">View Project</a>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal{{project.id}}">
                     Rate
                   </button>
-                </div>
-                
+                </div>             
               </div>
         </div>
           
