@@ -14,6 +14,8 @@ urlpatterns=[
     path('post/project', views.post_project, name = 'postProject'),
     path('rating/<int:id>', views.ratings, name = 'ratings'),
     path('search/', views.search_project, name = 'search_project'),
+    path('api/project/', views.ProjectList.as_view()),
+    path('api/profile/', views.ProfileList.as_view())
 
     
 ]
