@@ -2,23 +2,73 @@
 {% load bootstrap5 %}
 {% block content %}
 <div class="container">
-     <p>{{current_user.username}}</p>
-     {% if profile.profile_pic %}
-       <img src="{{profile.profile_pic.url}}" alt=""> 
-       <p>{{profile.bio}}</p>
-    {% else %}
-    <h1>You have no profile pic create one</h1>  
-    {% endif %}
-    <div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      {% if profile.profile_pic %}
+      <img src="{{profile.profile_pic.url}}" style="width: 300px; height: 300px; border-radius: 100%;" alt=""> 
+   {% else %}
+      <h1>You have no profile pic create one <a href="{% url 'updateProfile' %}">Here</a></h1>  
+      {% endif %}
+    </div>
+    <div class="col-md-1">
+
+    </div>
+    <div class="col-md-2 mt-5">
+      <h6>{{current_user.username}}</h6>
+      <h6>{{profile.bio}}</h6>
+      <h6>{{profile.contact}}</h6>
+    </div>
+    <div class="col-md-2 mt-5">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal">
+        Post Project
+      </button>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            
+            <div class="container-fluid">
+                <div class="container-lg" id="contentWrapper">
+                    <div class="row mt-5">
+                        <div id="main" class="col-lg-8 col-12 my-4">
+
+                            <div class="col-md-12">
+                                <form action="{% url 'postProject' %}" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {% bootstrap_form project_form %}
+                                    <input type="submit" class="btn btn-success btn-lg" value="Post">
+                                
+                                </form>
+                            </div>
+                            </div>
+                </div>          
+            </div>             
+            </div>   
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+     
+</div>    
+    <div class="container mt-4">
       <div class="row">
         {% for project in projects %}
-        <div class="col-md-4">
-          <div class="card" style="width: 25rem; height: 392px;">
+        <div class="col-md-4   col-sm-4 col-xl-4 col-lg-4">
+          <div class="card mx-auto m-1" style="width: 100%; height: 392px; ">
             <img class="card-img-top" src="{{project.image.url}}" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">{{project.title}}</h5>
               <p class="card-text">{{project.description}}</p>
-              <!-- <a href="{{project.project_url}}" class="btn btn-primary">View Project</a> -->
             </div>
             
           </div>
@@ -26,6 +76,4 @@
         {% endfor %}
       </div>
     </div>
-     
-</div>
 {% endblock %}
