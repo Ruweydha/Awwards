@@ -13,6 +13,9 @@ class Profile(models.Model):
     profile_pic = models.ImageField(upload_to = 'profile/', blank = True, null=True)
     contact = models.CharField(max_length = 10, blank = True, null=True)
 
+    def save_profile(self):
+        self.save()  
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -34,6 +37,9 @@ class Project(models.Model):
     def search_by_title(cls,search_term):
         news = cls.objects.filter(title__icontains=search_term)
         return news
+    
+    def save_project(self):
+        self.save()     
 
 
 class Ratings(models.Model):
